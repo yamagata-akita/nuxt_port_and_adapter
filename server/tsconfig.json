@@ -1,3 +1,10 @@
 {
-  "extends": "../.nuxt/tsconfig.server.json"
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "../.nuxt/tsconfig.server.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  }
 }

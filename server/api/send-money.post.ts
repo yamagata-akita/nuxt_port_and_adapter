@@ -1,4 +1,5 @@
-import { container } from '../di-container'
+import { container } from '../di-container/container'
+import { TYPES } from '../di-container/types'
 import { SendMoneyUseCase } from '../application/port/in/sendMoneyUseCase'
 import { SendMoneyCommand } from '../application/port/in/sendMoneyCommand'
 
@@ -10,7 +11,7 @@ export default defineEventHandler(async (event) => {
     BigInt(body.money)
   )
   
-  const sendMoneyUseCase = container.get<SendMoneyUseCase>('SendMoneyUseCase')
+  const sendMoneyUseCase = container.get<SendMoneyUseCase>(TYPES.SendMoneyUseCase)
   let result: boolean
   try {
     result = await sendMoneyUseCase.sendMoney(command)

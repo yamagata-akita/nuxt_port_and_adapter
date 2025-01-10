@@ -1,13 +1,18 @@
-import { container } from '../../../di-container'
+import 'reflect-metadata'
+import { injectable, inject } from 'inversify'
+import { TYPES } from '../../../di-container/types'
 import { SendMoneyUseCase } from '../../port/in/sendMoneyUseCase'
 import { SendMoneyCommand } from '../../port/in/sendMoneyCommand'
 import { Account } from '../model/account'
 import { LoadAccountPort } from '../../port/out/loadAccountPort'
 import { UpdateAccountStatePort } from '../../port/out/updateAccountStatePort'
 
+@injectable()
 export class SendMoneyService implements SendMoneyUseCase {
-  private loadAccountPort: LoadAccountPort = container.get<LoadAccountPort>('LoadAccountPort')
-  private updateAccountStatePort: UpdateAccountStatePort = container.get<UpdateAccountStatePort>('UpdateAccountStatePort')
+  constructor(
+    @inject(TYPES.LoadAccountPort) private loadAccountPort: LoadAccountPort,
+    @inject(TYPES.UpdateAccountStatePort) private updateAccountStatePort: UpdateAccountStatePort
+  ) {}
 
   public async sendMoney(command: SendMoneyCommand): Promise<boolean> {
     this.checkThreshold(command)
@@ -52,7 +57,5 @@ export class SendMoneyService implements SendMoneyUseCase {
       throw new Error('The threshold of 100000 for a single transaction is exceeded')
     }
   }
-
-  
 }
 
