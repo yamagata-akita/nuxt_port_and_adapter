@@ -23,9 +23,6 @@ export class ActivityWindow {
     return depositBalance - withdrawalBalance
   }
 
-  // public List<Activity> getActivities() {
-	// 	return Collections.unmodifiableList(this.activities);
-	// }
   public getActivities(): Activity[] {
 		return this.activities
 	}

@@ -37,9 +37,9 @@ export class Account {
    * ※自身の口座から送金先の口座に送金した、という取引を取引履歴に追加する
    * @param money 
    * @param targetAccountId 
-  * @returns 引き出しが成功したかを示すPromise<boolean>
+  * @returns 引き出しが成功したかを示すboolean
    */
-  public async withdraw(money: bigint, targetAccountId: string): Promise<boolean> {
+  public withdraw(money: bigint, targetAccountId: string): boolean {
     if (!this.mayWithdraw(money)) {
         return false
     }
@@ -72,7 +72,7 @@ export class Account {
    * @param sourceAccountId 
    * @returns 
    */
-  public async deposit(money: bigint, sourceAccountId: string): Promise<boolean> {
+  public deposit(money: bigint, sourceAccountId: string): boolean {
     const deposit = new Activity(
       this.id, // 口座所有者の口座ID
       sourceAccountId, // 送金元の口座ID

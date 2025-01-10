@@ -32,23 +32,17 @@ export class SendMoneyService implements SendMoneyUseCase {
     const sourceAccountId = sourceAccount.getId()
     const targetAccountId = targetAccount.getId()
 
-    // accountLock.lockAccount(sourceAccountId)
     if (!sourceAccount.withdraw(command.money, targetAccountId)) {
-      // accountLock.releaseAccount(sourceAccountId)
       return false
     }
 
-    // accountLock.lockAccount(targetAccountId)
     if (!targetAccount.deposit(command.money, sourceAccountId)) {
-      // accountLock.releaseAccount(sourceAccountId)
       return false
     }
 
     await this.updateAccountStatePort.updateActivities(sourceAccount)
     await this.updateAccountStatePort.updateActivities(targetAccount)
 
-    // accountLock.releaseAccount(sourceAccountId)
-		// accountLock.releaseAccount(targetAccountId)
 		return true
   }
 
