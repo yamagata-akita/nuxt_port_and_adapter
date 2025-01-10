@@ -14,6 +14,12 @@ export class SendMoneyService implements SendMoneyUseCase {
     @inject(TYPES.UpdateAccountStatePort) private updateAccountStatePort: UpdateAccountStatePort
   ) {}
 
+  /**
+   * 送金を行う
+   * 送金に成功した場合はtrue、失敗した場合はfalseを返す
+   * @param command sendMoneyの入力モデル
+   * @returns boolean 
+   */
   public async sendMoney(command: SendMoneyCommand): Promise<boolean> {
     this.checkThreshold(command)
 
